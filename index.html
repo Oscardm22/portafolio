@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oscar Riera - Desarrollador Full Stack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+        .tech-badge {
+            transition: all 0.3s ease;
+        }
+        .tech-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .project-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+        }
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .skill-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .skill-level {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+        .skill-level.intermediate {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
+    <!-- Header con Foto -->
+    <header class="gradient-bg text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-10"></div>
+        <div class="container mx-auto px-6 py-20 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">
+                        Oscar Riera
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-6 opacity-90 font-light">
+                        Ingeniero de Sistemas & Desarrollador Full Stack
+                    </p>
+                    <p class="text-lg opacity-80 leading-relaxed mb-8">
+                        Creo aplicaciones móviles eficientes y soluciones tecnológicas innovadoras 
+                        que transforman ideas en realidad digital
+                    </p>
+                    <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                        <a href="#proyectos" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition duration-300">
+                            Ver Proyectos
+                        </a>
+                        <a href="#contacto" class="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">
+                            Contactar
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="floating">
+                        <div class="w-64 h-64 bg-white bg-opacity-20 rounded-full overflow-hidden border-4 border-white border-opacity-30 shadow-2xl">
+                            <img src="images/mi_foto.jpeg" alt="Oscar Riera - Desarrollador Full Stack" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-gray-50 to-transparent"></div>
+    </header>
+
+    <!-- Sección Sobre Mí -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">
+                    Sobre <span class="text-blue-600">Mí</span>
+                </h2>
+                <div class="text-lg text-gray-600 leading-relaxed space-y-4">
+                    <p>
+                        Soy <strong>Ingeniero de Sistemas</strong> apasionado por el desarrollo de software, 
+                        especializado en crear soluciones tecnológicas innovadoras que resuelven problemas reales.
+                    </p>
+                    <p>
+                        Como desarrollador <strong>full-stack</strong>, me especializo en crear 
+                        <strong>aplicaciones Android nativas</strong> y <strong>sistemas web robustos</strong>. 
+                        Mi enfoque combina arquitecturas limpias con las mejores prácticas para entregar 
+                        soluciones tecnológicas que resuelven problemas reales.
+                    </p>
+                    <p>
+                        Mi enfoque se basa en las <strong>mejores prácticas de desarrollo</strong>, arquitecturas 
+                        limpias como MVVM, y el uso de tecnologías modernas para garantizar código mantenible 
+                        y escalable.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Habilidades -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                Habilidades <span class="text-blue-600">Técnicas</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Tecnologías y herramientas que utilizo para crear soluciones innovadoras
+            </p>
+        </div>
+
+        <!-- Desarrollo Móvil -->
+        <div class="mb-12">
+            <div class="flex items-center justify-center mb-8">
+                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
+                    <i class="fas fa-mobile-alt text-blue-600 text-xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800">Desarrollo Móvil</h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="skill-card">
+                    <i class="fab fa-android text-green-500 text-3xl mb-3"></i>
+                    <span class="font-semibold text-gray-800 block mb-1">Kotlin</span>
+                    <div class="skill-level intermediate">Intermedio</div>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-layer-group text-blue-500 text-3xl mb-3"></i>
+                    <span class="font-semibold text-gray-800 block mb-1">Android Jetpack</span>
+                    <div class="skill-level intermediate">Intermedio</div>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-sitemap text-purple-500 text-3xl mb-3"></i>
+                    <span class="font-semibold text-gray-800 block mb-1">MVVM</span>
+                    <div class="skill-level intermediate">Intermedio</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Desarrollo Web -->
+        <div class="mb-12">
+            <div class="flex items-center justify-center mb-8">
+                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mr-4">
+                    <i class="fas fa-globe text-green-600 text-xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800">Desarrollo Web</h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Nuevo: Python -->
+                <div class="skill-card">
+                    <i class="fab fa-python text-blue-500 text-3xl mb-3"></i>
+                    <span class="font-semibold text-gray-800 block mb-1">Python</span>
+                    <div class="skill-level intermediate">Intermedio</div>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-php text-purple-500 text-3xl mb-3"></i>
+                    <span class="font-semibold text-gray-800 block mb-1">PHP</span>
+                    <div class="skill-level intermediate">Básico</div>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-database text-blue-500 text-3xl mb-3"></i>
+                    <span class="font-semibold text-gray-800 block mb-1">MySQL</span>
+                    <div class="skill-level intermediate">Intermedio</div>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-js-square text-yellow-500 text-3xl mb-3"></i>
+                    <span class="font-semibold text-gray-800 block mb-1">JavaScript</span>
+                    <div class="skill-level intermediate">Básico</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Herramientas y Bases de Datos -->
+        <div class="mb-12">
+            <div class="flex items-center justify-center mb-8">
+                <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mr-4">
+                    <i class="fas fa-tools text-yellow-600 text-xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800">Herramientas & Bases de Datos</h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="skill-card">
+                    <i class="fab fa-git-alt text-orange-500 text-3xl mb-3"></i>
+                    <span class="font-semibold text-gray-800 block mb-1">Git & GitHub</span>
+                    <div class="skill-level intermediate">Intermedio</div>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-fire text-orange-500 text-3xl mb-3"></i>
+                    <span class="font-semibold text-gray-800 block mb-1">Firebase</span>
+                    <div class="skill-level intermediate">Intermedio</div>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-database text-green-500 text-3xl mb-3"></i>
+                    <span class="font-semibold text-gray-800 block mb-1">Room DB</span>
+                    <div class="skill-level intermediate">Intermedio</div>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-code-branch text-blue-500 text-3xl mb-3"></i>
+                    <span class="font-semibold text-gray-800 block mb-1">Repository Pattern</span>
+                    <div class="skill-level intermediate">Intermedio</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Proyectos Mejorados -->
+    <main id="proyectos" class="container mx-auto px-6 py-16 -mt-8 relative z-20">
+        <!-- Encabezado de proyectos mejorado -->
+        <div class="text-center mb-16">
+            <div class="inline-block bg-white rounded-full px-6 py-2 shadow-lg mb-4">
+                <span class="text-purple-600 font-semibold text-sm uppercase tracking-wider">
+                    <i class="fas fa-rocket mr-2"></i>Portafolio Destacado
+                </span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                Mis <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Proyectos</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Soluciones tecnológicas innovadoras desarrolladas con las mejores prácticas y tecnologías modernas
+            </p>
+        </div>
+        
+        <!-- Proyecto 1: Inventario - Mejorado -->
+        <div class="project-card rounded-2xl shadow-2xl p-8 mb-16 border-l-4 border-blue-500 hover-lift">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-2/3">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fas fa-boxes text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-800">
+                            App de Gestión de Inventario
+                        </h3>
+                    </div>
+                    
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        <strong class="text-gray-800">Sistema completo de inventario</strong> desarrollado en Android nativo con control de stock avanzado, 
+                        sistema de ventas integrado y exportación de reportes en tiempo real.
+                    </p>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-gray-800 font-semibold mb-3 text-lg">Tecnologías Utilizadas</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="tech-badge bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-medium shadow-sm">
+                                <i class="fab fa-android mr-2"></i>Kotlin
+                            </span>
+                            <span class="tech-badge bg-green-100 text-green-800 px-4 py-2 rounded-full font-medium shadow-sm">
+                                <i class="fas fa-layer-group mr-2"></i>Android Jetpack
+                            </span>
+                            <span class="tech-badge bg-purple-100 text-purple-800 px-4 py-2 rounded-full font-medium shadow-sm">
+                                <i class="fas fa-sitemap mr-2"></i>MVVM
+                            </span>
+                            <span class="tech-badge bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full font-medium shadow-sm">
+                                <i class="fas fa-bolt mr-2"></i>Corrutinas
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="mb-8">
+                        <h4 class="text-gray-800 font-semibold mb-3 text-lg">Características Principales</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                Gestión completa de productos (CRUD)
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                Sistema de ventas con historial
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                Conversión USD/Bs en tiempo real
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                Exportación PDF/CSV
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="https://github.com/Oscardm22/Almacen.git" 
+                       class="inline-flex items-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
+                        <i class="fab fa-github mr-3 text-lg"></i>
+                        <span class="font-semibold">Ver Código en GitHub</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <div class="lg:w-1/3">
+                    <div class="h-[460px] bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl shadow-inner border border-blue-200 flex items-center justify-center p-6">
+                        <img src="images/app_inventario.jpeg" alt="App de Gestión de Inventario - Pantalla principal" 
+                            class="h-full object-contain rounded-xl shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Proyecto 2: Asistencia QR -->
+        <div class="project-card rounded-2xl shadow-2xl p-8 mb-16 border-l-4 border-green-500 hover-lift">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-2/3">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fas fa-qrcode text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-800">
+                            Sistema de Asistencia con Validación QR + Geolocalización
+                        </h3>
+                    </div>
+                    
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        <strong class="text-gray-800">Sistema avanzado de control de acceso</strong> con validación mediante QR únicos, 
+                        geolocalización precisa y generación automática de carnets profesionales.
+                    </p>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-gray-800 font-semibold mb-3 text-lg">Tecnologías Utilizadas</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="tech-badge bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-medium shadow-sm">
+                                <i class="fab fa-android mr-2"></i>Kotlin
+                            </span>
+                            <span class="tech-badge bg-green-100 text-green-800 px-4 py-2 rounded-full font-medium shadow-sm">
+                                <i class="fas fa-map-marker-alt mr-2"></i>Google Location
+                            </span>
+                            <span class="tech-badge bg-red-100 text-red-800 px-4 py-2 rounded-full font-medium shadow-sm">
+                                <i class="fas fa-qrcode mr-2"></i>ZXing QR
+                            </span>
+                            <span class="tech-badge bg-pink-100 text-pink-800 px-4 py-2 rounded-full font-medium shadow-sm">
+                                <i class="fas fa-file-pdf mr-2"></i>PDF Generation
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="mb-8">
+                        <h4 class="text-gray-800 font-semibold mb-3 text-lg">Características Destacadas</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-star text-yellow-500 mr-3"></i>
+                                Carnets profesionales PDF
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-star text-yellow-500 mr-3"></i>
+                                Validación por geolocalización
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-star text-yellow-500 mr-3"></i>
+                                Sistema ENTRY/EXIT automático
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-star text-yellow-500 mr-3"></i>
+                                Fotos circulares Base64
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="https://github.com/Oscardm22/AsistenciaQR.git" 
+                       class="inline-flex items-center bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-8 py-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
+                        <i class="fab fa-github mr-3 text-lg"></i>
+                        <span class="font-semibold">Ver Código en GitHub</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <div class="lg:w-1/3">
+                    <div class="h-[460px] bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl shadow-inner border border-green-200 flex items-center justify-center p-6">
+                        <img src="images/app_asistencia.jpg" alt="Generación de Carnet Profesional - App de Asistencia QR" 
+                            class="h-full object-contain rounded-xl shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Proyecto 3: Estadísticas Fútbol -->
+        <div class="project-card rounded-2xl shadow-2xl p-8 mb-16 border-l-4 border-red-500 hover-lift">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-2/3">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fas fa-futbol text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-800">
+                            Sistema Profesional de Estadísticas Deportivas
+                        </h3>
+                    </div>
+                    
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        <strong class="text-gray-800">Plataforma completa de análisis deportivo</strong> con dashboard multi-pestañas, 
+                        gestión de equipos, jugadores y partidos en tiempo real con Firebase Firestore.
+                    </p>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-gray-800 font-semibold mb-3 text-lg">Tecnologías Utilizadas</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="tech-badge bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-medium shadow-sm">
+                                <i class="fab fa-android mr-2"></i>Kotlin
+                            </span>
+                            <span class="tech-badge bg-red-100 text-red-800 px-4 py-2 rounded-full font-medium shadow-sm">
+                                <i class="fas fa-fire mr-2"></i>Firebase Firestore
+                            </span>
+                            <span class="tech-badge bg-indigo-100 text-indigo-800 px-4 py-2 rounded-full font-medium shadow-sm">
+                                <i class="fas fa-columns mr-2"></i>ViewPager2
+                            </span>
+                            <span class="tech-badge bg-pink-100 text-pink-800 px-4 py-2 rounded-full font-medium shadow-sm">
+                                <i class="fas fa-database mr-2"></i>Repository Pattern
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="mb-8">
+                        <h4 class="text-gray-800 font-semibold mb-3 text-lg">Características Avanzadas</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-chart-line text-blue-500 mr-3"></i>
+                                Dashboard multi-pestañas
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-robot text-purple-500 mr-3"></i>
+                                FAB contextual inteligente
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-filter text-green-500 mr-3"></i>
+                                Filtrado por competiciones
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-calculator text-orange-500 mr-3"></i>
+                                Cálculo automático de stats
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="https://github.com/Oscardm22/futbol-data.git" 
+                       class="inline-flex items-center bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
+                        <i class="fab fa-github mr-3 text-lg"></i>
+                        <span class="font-semibold">Ver Código en GitHub</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <div class="lg:w-1/3">
+                    <div class="h-[460px] bg-gradient-to-br from-red-50 to-pink-100 rounded-2xl shadow-inner border border-red-200 flex items-center justify-center p-6">
+                        <img src="images/fragment_estadisticas.jpg" alt="Dashboard de Estadísticas Deportivas - Vista multi-pestañas" 
+                            class="h-full object-contain rounded-xl shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Proyecto 4: Gestión de Guardias -->
+        <div class="project-card rounded-2xl shadow-2xl p-8 mb-16 border-l-4 border-yellow-500 hover-lift">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-2/3">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-yellow-500 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fas fa-calendar-alt text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-800">
+                            Sistema Web de Gestión de Guardias Hospitalarias
+                        </h3>
+                    </div>
+                    
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        <strong class="text-gray-800">Plataforma web completa</strong> para gestión automatizada de turnos de guardia hospitalaria 
+                        con dashboard administrativo, sistema de permisos y reportes en tiempo real.
+                    </p>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-gray-800 font-semibold mb-3 text-lg">Tecnologías Utilizadas</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="tech-badge bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-medium shadow-sm">
+                                <i class="fab fa-php mr-2"></i>PHP
+                            </span>
+                            <span class="tech-badge bg-green-100 text-green-800 px-4 py-2 rounded-full font-medium shadow-sm">
+                                <i class="fas fa-database mr-2"></i>MySQL
+                            </span>
+                            <span class="tech-badge bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full font-medium shadow-sm">
+                                <i class="fab fa-bootstrap mr-2"></i>Bootstrap 5
+                            </span>
+                            <span class="tech-badge bg-purple-100 text-purple-800 px-4 py-2 rounded-full font-medium shadow-sm">
+                                <i class="fab fa-js-square mr-2"></i>jQuery & AJAX
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="mb-8">
+                        <h4 class="text-gray-800 font-semibold mb-3 text-lg">Funcionalidades Clave</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-tachometer-alt text-blue-500 mr-3"></i>
+                                Dashboard administrativo
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-shield-alt text-green-500 mr-3"></i>
+                                Control de permisos granular
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-users-cog text-purple-500 mr-3"></i>
+                                Gestión completa de personal
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-bell text-yellow-500 mr-3"></i>
+                                Sistema de notificaciones
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="https://github.com/Oscardm22/sistema_guardias_hospital.git" 
+                       class="inline-flex items-center bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-700 hover:to-yellow-800 text-white px-8 py-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
+                        <i class="fab fa-github mr-3 text-lg"></i>
+                        <span class="font-semibold">Ver Código en GitHub</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <div class="lg:w-1/3">
+                    <div class="h-[460px] bg-gradient-to-br from-yellow-50 to-orange-100 rounded-2xl shadow-inner border border-yellow-200 flex items-center justify-center p-6">
+                        <img src="images/home.jpg" alt="Dashboard de Gestión de Guardias Hospitalarias - Vista administrativa" 
+                            class="w-full h-full object-contain bg-white rounded-xl shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contacto" class="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-16 mt-16">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-8">¿Listo para trabajar juntos?</h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Transformemos tus ideas en soluciones tecnológicas innovadoras
+            </p>
+            <div class="flex flex-wrap justify-center gap-8 mb-8">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=oscarj.rierav@gmail.com"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="flex items-center gap-3 hover:text-blue-300 transition duration-300 bg-white bg-opacity-10 px-6 py-3 rounded-xl hover:bg-opacity-20">
+   <i class="fas fa-envelope text-xl"></i>
+   <span class="font-semibold">Email</span>
+</a>
+
+                <a href="https://www.linkedin.com/in/oscar-josue-riera-ventura-761ba61a8" 
+                class="flex items-center gap-3 hover:text-blue-300 transition duration-300 bg-white bg-opacity-10 px-6 py-3 rounded-xl hover:bg-opacity-20">
+                    <i class="fab fa-linkedin text-xl"></i>
+                    <span class="font-semibold">LinkedIn</span>
+                </a>
+                <a href="https://github.com/Oscardm22" 
+                class="flex items-center gap-3 hover:text-blue-300 transition duration-300 bg-white bg-opacity-10 px-6 py-3 rounded-xl hover:bg-opacity-20">
+                    <i class="fab fa-github text-xl"></i>
+                    <span class="font-semibold">GitHub</span>
+                </a>
+            </div>
+            <div class="border-t border-gray-700 pt-8 mt-8">
+                <p class="text-gray-400">
+                    &copy; 2024 Oscar Riera. Desarrollado con pasión por la tecnología
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
