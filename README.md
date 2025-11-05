@@ -66,6 +66,6 @@ Puedes ver mi portafolio en vivo aquí:
 ¡Estoy siempre abierto a nuevas oportunidades y colaboraciones!
 
 - 📧 **Email:** [oscarj.rierav@gmail.com](mailto:oscarj.rierav@gmail.com)
-- 💼 **LinkedIn:** [Oscar Josué Riera Ventura](https://www.linkedin.com/in/oscar-josue-riera-ventura-761ba61a8)
+- 💼 **LinkedIn:** [Oscar Josue Riera Ventura](https://www.linkedin.com/in/oscar-josue-riera-ventura-761ba61a8)
 - 🔗 **GitHub:** [@Oscardm22](https://github.com/Oscardm22)
 - 📱 **Portafolio:** [Ver Online](https://Oscardm22.github.io/portafolio)
