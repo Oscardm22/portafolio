@@ -10,7 +10,32 @@
     <style>
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
         }
+
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(45deg) translateX(-100%); }
+            100% { transform: rotate(45deg) translateX(100%); }
+        }
+        
         .hover-lift {
             transition: all 0.3s ease;
         }
@@ -60,9 +85,267 @@
             background-color: #dbeafe;
             color: #1e40af;
         }
+        .skill-level.basic {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        .image-btn {
+            transition: all 0.3s ease;
+        }
+        .image-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        /* Scroll suave mejorado */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Efecto de revelado suave para las secciones */
+        .section-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .section-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Indicador de progreso del scroll */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+        
+        /* Botón flotante para volver arriba */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        /* Animación de entrada para los proyectos */
+        .project-card {
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: calc(var(--delay) * 0.1s);
+            opacity: 0;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Estilos para el modal de imágenes */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 95%;
+            max-height: 95%;
+            margin: auto;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .image-modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 4px;
+            transition: background 0.2s ease;
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        /* Imágenes para móviles - relación de aspecto vertical */
+        .mobile-image {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            max-height: 600px;
+            object-fit: contain;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            margin: 0 auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-image:hover {
+            transform: scale(1.02);
+        }
+
+        /* Imágenes para web - relación de aspecto horizontal */
+        .web-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .web-image:hover {
+            transform: scale(1.05);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e2e8f0 100%);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 0.875rem;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .image-placeholder i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Indicador de que hay más imágenes */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
+    <!-- Barra de progreso del scroll -->
+    <div class="scroll-progress"></div>
+    
+    <!-- Botón volver arriba -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <!-- Modal para imágenes -->
+    <div class="image-modal" id="imageModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Imágenes del Proyecto</h3>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="image-grid" id="modalImages">
+                    <!-- Las imágenes se cargarán dinámicamente aquí -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Header con Foto -->
     <header class="gradient-bg text-white relative overflow-hidden">
         <div class="absolute inset-0 bg-black opacity-10"></div>
@@ -80,11 +363,11 @@
                         que transforman ideas en realidad digital
                     </p>
                     <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-                        <a href="#proyectos" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition duration-300">
-                            Ver Proyectos
+                        <a href="#proyectos" class="nav-btn bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-500 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                            <i class="fas fa-arrow-down mr-2"></i>Ver Proyectos
                         </a>
-                        <a href="#contacto" class="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">
-                            Contactar
+                        <a href="#contacto" class="nav-btn border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-all duration-500 transform hover:scale-105">
+                            <i class="fas fa-paper-plane mr-2"></i>Contactar
                         </a>
                     </div>
                 </div>
@@ -102,7 +385,7 @@
     </header>
 
     <!-- Sección Sobre Mí -->
-    <section class="py-16 bg-white">
+    <section class="section-reveal py-16 bg-white">
         <div class="container mx-auto px-6">
             <div class="max-w-4xl mx-auto text-center">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">
@@ -130,112 +413,111 @@
     </section>
 
     <!-- Sección Habilidades -->
-<section class="py-16 bg-gray-50">
-    <div class="container mx-auto px-6">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-                Habilidades <span class="text-blue-600">Técnicas</span>
-            </h2>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                Tecnologías y herramientas que utilizo para crear soluciones innovadoras
-            </p>
-        </div>
+    <section class="section-reveal py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    Habilidades <span class="text-blue-600">Técnicas</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Tecnologías y herramientas que utilizo para crear soluciones innovadoras
+                </p>
+            </div>
 
-        <!-- Desarrollo Móvil -->
-        <div class="mb-12">
-            <div class="flex items-center justify-center mb-8">
-                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
-                    <i class="fas fa-mobile-alt text-blue-600 text-xl"></i>
+            <!-- Desarrollo Móvil -->
+            <div class="mb-12">
+                <div class="flex items-center justify-center mb-8">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-mobile-alt text-blue-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800">Desarrollo Móvil</h3>
                 </div>
-                <h3 class="text-2xl font-bold text-gray-800">Desarrollo Móvil</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <div class="skill-card">
+                        <i class="fab fa-android text-green-500 text-3xl mb-3"></i>
+                        <span class="font-semibold text-gray-800 block mb-1">Kotlin</span>
+                        <div class="skill-level intermediate">Intermedio</div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-layer-group text-blue-500 text-3xl mb-3"></i>
+                        <span class="font-semibold text-gray-800 block mb-1">Android Jetpack</span>
+                        <div class="skill-level intermediate">Intermedio</div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-sitemap text-purple-500 text-3xl mb-3"></i>
+                        <span class="font-semibold text-gray-800 block mb-1">MVVM</span>
+                        <div class="skill-level intermediate">Intermedio</div>
+                    </div>
+                </div>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                <div class="skill-card">
-                    <i class="fab fa-android text-green-500 text-3xl mb-3"></i>
-                    <span class="font-semibold text-gray-800 block mb-1">Kotlin</span>
-                    <div class="skill-level intermediate">Intermedio</div>
+
+            <!-- Desarrollo Web -->
+            <div class="mb-12">
+                <div class="flex items-center justify-center mb-8">
+                    <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-globe text-green-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800">Desarrollo Web</h3>
                 </div>
-                <div class="skill-card">
-                    <i class="fas fa-layer-group text-blue-500 text-3xl mb-3"></i>
-                    <span class="font-semibold text-gray-800 block mb-1">Android Jetpack</span>
-                    <div class="skill-level intermediate">Intermedio</div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <div class="skill-card">
+                        <i class="fab fa-python text-blue-500 text-3xl mb-3"></i>
+                        <span class="font-semibold text-gray-800 block mb-1">Python</span>
+                        <div class="skill-level intermediate">Intermedio</div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-php text-purple-500 text-3xl mb-3"></i>
+                        <span class="font-semibold text-gray-800 block mb-1">PHP</span>
+                        <div class="skill-level basic">Básico</div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-js-square text-yellow-500 text-3xl mb-3"></i>
+                        <span class="font-semibold text-gray-800 block mb-1">JavaScript</span>
+                        <div class="skill-level basic">Básico</div>
+                    </div>
                 </div>
-                <div class="skill-card">
-                    <i class="fas fa-sitemap text-purple-500 text-3xl mb-3"></i>
-                    <span class="font-semibold text-gray-800 block mb-1">MVVM</span>
-                    <div class="skill-level intermediate">Intermedio</div>
+            </div>
+
+            <!-- Herramientas y Bases de Datos -->
+            <div class="mb-12">
+                <div class="flex items-center justify-center mb-8">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-tools text-yellow-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800">Herramientas & Bases de Datos</h3>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="skill-card">
+                        <i class="fab fa-git-alt text-orange-500 text-3xl mb-3"></i>
+                        <span class="font-semibold text-gray-800 block mb-1">Git & GitHub</span>
+                        <div class="skill-level intermediate">Intermedio</div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-fire text-orange-500 text-3xl mb-3"></i>
+                        <span class="font-semibold text-gray-800 block mb-1">Firebase</span>
+                        <div class="skill-level intermediate">Intermedio</div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-database text-green-500 text-3xl mb-3"></i>
+                        <span class="font-semibold text-gray-800 block mb-1">Room DB</span>
+                        <div class="skill-level intermediate">Intermedio</div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-database text-blue-500 text-3xl mb-3"></i>
+                        <span class="font-semibold text-gray-800 block mb-1">MySQL</span>
+                        <div class="skill-level intermediate">Intermedio</div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-code-branch text-blue-500 text-3xl mb-3"></i>
+                        <span class="font-semibold text-gray-800 block mb-1">Repository Pattern</span>
+                        <div class="skill-level intermediate">Intermedio</div>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Desarrollo Web -->
-        <div class="mb-12">
-            <div class="flex items-center justify-center mb-8">
-                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mr-4">
-                    <i class="fas fa-globe text-green-600 text-xl"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-800">Desarrollo Web</h3>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                <!-- Nuevo: Python -->
-                <div class="skill-card">
-                    <i class="fab fa-python text-blue-500 text-3xl mb-3"></i>
-                    <span class="font-semibold text-gray-800 block mb-1">Python</span>
-                    <div class="skill-level intermediate">Intermedio</div>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-php text-purple-500 text-3xl mb-3"></i>
-                    <span class="font-semibold text-gray-800 block mb-1">PHP</span>
-                    <div class="skill-level intermediate">Básico</div>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-database text-blue-500 text-3xl mb-3"></i>
-                    <span class="font-semibold text-gray-800 block mb-1">MySQL</span>
-                    <div class="skill-level intermediate">Intermedio</div>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-js-square text-yellow-500 text-3xl mb-3"></i>
-                    <span class="font-semibold text-gray-800 block mb-1">JavaScript</span>
-                    <div class="skill-level intermediate">Básico</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Herramientas y Bases de Datos -->
-        <div class="mb-12">
-            <div class="flex items-center justify-center mb-8">
-                <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mr-4">
-                    <i class="fas fa-tools text-yellow-600 text-xl"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-800">Herramientas & Bases de Datos</h3>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="skill-card">
-                    <i class="fab fa-git-alt text-orange-500 text-3xl mb-3"></i>
-                    <span class="font-semibold text-gray-800 block mb-1">Git & GitHub</span>
-                    <div class="skill-level intermediate">Intermedio</div>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-fire text-orange-500 text-3xl mb-3"></i>
-                    <span class="font-semibold text-gray-800 block mb-1">Firebase</span>
-                    <div class="skill-level intermediate">Intermedio</div>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-database text-green-500 text-3xl mb-3"></i>
-                    <span class="font-semibold text-gray-800 block mb-1">Room DB</span>
-                    <div class="skill-level intermediate">Intermedio</div>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-code-branch text-blue-500 text-3xl mb-3"></i>
-                    <span class="font-semibold text-gray-800 block mb-1">Repository Pattern</span>
-                    <div class="skill-level intermediate">Intermedio</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-    <!-- Proyectos Mejorados -->
+    <!-- Proyectos -->
     <main id="proyectos" class="container mx-auto px-6 py-16 -mt-8 relative z-20">
         <!-- Encabezado de proyectos mejorado -->
         <div class="text-center mb-16">
@@ -252,309 +534,258 @@
             </p>
         </div>
         
-        <!-- Proyecto 1: Inventario - Mejorado -->
-        <div class="project-card rounded-2xl shadow-2xl p-8 mb-16 border-l-4 border-blue-500 hover-lift">
-            <div class="flex flex-col lg:flex-row gap-8">
-                <div class="lg:w-2/3">
-                    <div class="flex items-center mb-6">
-                        <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mr-4">
-                            <i class="fas fa-boxes text-white text-xl"></i>
-                        </div>
-                        <h3 class="text-3xl font-bold text-gray-800">
-                            App de Gestión de Inventario
-                        </h3>
+        <!-- Grid de proyectos en 2 columnas -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Proyecto 1: Inventario -->
+            <div class="project-card rounded-2xl shadow-2xl p-6 border-l-4 border-blue-500 hover-lift" style="--delay: 1">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center mr-3">
+                        <i class="fas fa-boxes text-white text-lg"></i>
                     </div>
-                    
-                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
-                        <strong class="text-gray-800">Sistema completo de inventario</strong> desarrollado en Android nativo con control de stock avanzado, 
-                        sistema de ventas integrado y exportación de reportes en tiempo real.
-                    </p>
-                    
-                    <div class="mb-6">
-                        <h4 class="text-gray-800 font-semibold mb-3 text-lg">Tecnologías Utilizadas</h4>
-                        <div class="flex flex-wrap gap-3">
-                            <span class="tech-badge bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-medium shadow-sm">
-                                <i class="fab fa-android mr-2"></i>Kotlin
-                            </span>
-                            <span class="tech-badge bg-green-100 text-green-800 px-4 py-2 rounded-full font-medium shadow-sm">
-                                <i class="fas fa-layer-group mr-2"></i>Android Jetpack
-                            </span>
-                            <span class="tech-badge bg-purple-100 text-purple-800 px-4 py-2 rounded-full font-medium shadow-sm">
-                                <i class="fas fa-sitemap mr-2"></i>MVVM
-                            </span>
-                            <span class="tech-badge bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full font-medium shadow-sm">
-                                <i class="fas fa-bolt mr-2"></i>Corrutinas
-                            </span>
-                        </div>
+                    <h3 class="text-2xl font-bold text-gray-800">
+                        App de Gestión de Inventario
+                    </h3>
+                </div>
+                
+                <p class="text-gray-600 mb-4 text-base leading-relaxed">
+                    <strong class="text-gray-800">Sistema completo de inventario</strong> desarrollado en Android nativo con control de stock avanzado y sistema de ventas integrado.
+                </p>
+                
+                <div class="mb-4">
+                    <h4 class="text-gray-800 font-semibold mb-2 text-base">Tecnologías</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tech-badge bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                            <i class="fab fa-android mr-1"></i>Kotlin
+                        </span>
+                        <span class="tech-badge bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                            <i class="fas fa-layer-group mr-1"></i>Jetpack
+                        </span>
+                        <span class="tech-badge bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
+                            <i class="fas fa-sitemap mr-1"></i>MVVM
+                        </span>
                     </div>
+                </div>
 
-                    <div class="mb-8">
-                        <h4 class="text-gray-800 font-semibold mb-3 text-lg">Características Principales</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div class="flex items-center text-gray-600">
-                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                                Gestión completa de productos (CRUD)
-                            </div>
-                            <div class="flex items-center text-gray-600">
-                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                                Sistema de ventas con historial
-                            </div>
-                            <div class="flex items-center text-gray-600">
-                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                                Conversión USD/Bs en tiempo real
-                            </div>
-                            <div class="flex items-center text-gray-600">
-                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                                Exportación PDF/CSV
-                            </div>
+                <div class="mb-4">
+                    <h4 class="text-gray-800 font-semibold mb-2 text-base">Características</h4>
+                    <div class="grid grid-cols-1 gap-2">
+                        <div class="flex items-center text-gray-600 text-sm">
+                            <i class="fas fa-check-circle text-green-500 mr-2 text-xs"></i>
+                            Gestión completa de productos (CRUD)
+                        </div>
+                        <div class="flex items-center text-gray-600 text-sm">
+                            <i class="fas fa-check-circle text-green-500 mr-2 text-xs"></i>
+                            Sistema de ventas con historial
+                        </div>
+                        <div class="flex items-center text-gray-600 text-sm">
+                            <i class="fas fa-check-circle text-green-500 mr-2 text-xs"></i>
+                            Exportación PDF/CSV
                         </div>
                     </div>
+                </div>
 
+                <div class="flex flex-col sm:flex-row gap-3 mt-4">
                     <a href="https://github.com/Oscardm22/Almacen.git" 
-                       class="inline-flex items-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
-                        <i class="fab fa-github mr-3 text-lg"></i>
-                        <span class="font-semibold">Ver Código en GitHub</span>
-                        <i class="fas fa-arrow-right ml-2"></i>
+                       class="flex-1 inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl text-sm">
+                        <i class="fab fa-github mr-2"></i>
+                        <span class="font-semibold">GitHub</span>
                     </a>
-                </div>
-                
-                <div class="lg:w-1/3">
-                    <div class="h-[460px] bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl shadow-inner border border-blue-200 flex items-center justify-center p-6">
-                        <img src="images/app_inventario.jpeg" alt="App de Gestión de Inventario - Pantalla principal" 
-                            class="h-full object-contain rounded-xl shadow-md">
-                    </div>
+                    <button class="flex-1 image-btn inline-flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-4 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl text-sm" onclick="showProjectImages('inventario')">
+                        <i class="fas fa-images mr-2"></i>
+                        <span class="font-semibold">Imágenes</span>
+                    </button>
                 </div>
             </div>
-        </div>
 
-        <!-- Proyecto 2: Asistencia QR -->
-        <div class="project-card rounded-2xl shadow-2xl p-8 mb-16 border-l-4 border-green-500 hover-lift">
-            <div class="flex flex-col lg:flex-row gap-8">
-                <div class="lg:w-2/3">
-                    <div class="flex items-center mb-6">
-                        <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center mr-4">
-                            <i class="fas fa-qrcode text-white text-xl"></i>
-                        </div>
-                        <h3 class="text-3xl font-bold text-gray-800">
-                            Sistema de Asistencia con Validación QR + Geolocalización
-                        </h3>
+            <!-- Proyecto 2: Asistencia QR -->
+            <div class="project-card rounded-2xl shadow-2xl p-6 border-l-4 border-green-500 hover-lift" style="--delay: 2">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center mr-3">
+                        <i class="fas fa-qrcode text-white text-lg"></i>
                     </div>
-                    
-                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
-                        <strong class="text-gray-800">Sistema avanzado de control de acceso</strong> con validación mediante QR únicos, 
-                        geolocalización precisa y generación automática de carnets profesionales.
-                    </p>
-                    
-                    <div class="mb-6">
-                        <h4 class="text-gray-800 font-semibold mb-3 text-lg">Tecnologías Utilizadas</h4>
-                        <div class="flex flex-wrap gap-3">
-                            <span class="tech-badge bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-medium shadow-sm">
-                                <i class="fab fa-android mr-2"></i>Kotlin
-                            </span>
-                            <span class="tech-badge bg-green-100 text-green-800 px-4 py-2 rounded-full font-medium shadow-sm">
-                                <i class="fas fa-map-marker-alt mr-2"></i>Google Location
-                            </span>
-                            <span class="tech-badge bg-red-100 text-red-800 px-4 py-2 rounded-full font-medium shadow-sm">
-                                <i class="fas fa-qrcode mr-2"></i>ZXing QR
-                            </span>
-                            <span class="tech-badge bg-pink-100 text-pink-800 px-4 py-2 rounded-full font-medium shadow-sm">
-                                <i class="fas fa-file-pdf mr-2"></i>PDF Generation
-                            </span>
-                        </div>
+                    <h3 class="text-2xl font-bold text-gray-800">
+                        App de Sistema de Asistencia QR + Geolocalización
+                    </h3>
+                </div>
+                
+                <p class="text-gray-600 mb-4 text-base leading-relaxed">
+                    <strong class="text-gray-800">Sistema avanzado de control de acceso</strong> con validación mediante QR únicos, geolocalización y carnets profesionales.
+                </p>
+                
+                <div class="mb-4">
+                    <h4 class="text-gray-800 font-semibold mb-2 text-base">Tecnologías</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tech-badge bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                            <i class="fab fa-android mr-1"></i>Kotlin
+                        </span>
+                        <span class="tech-badge bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                            <i class="fas fa-map-marker-alt mr-1"></i>Location
+                        </span>
+                        <span class="tech-badge bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">
+                            <i class="fas fa-qrcode mr-1"></i>ZXing QR
+                        </span>
                     </div>
+                </div>
 
-                    <div class="mb-8">
-                        <h4 class="text-gray-800 font-semibold mb-3 text-lg">Características Destacadas</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div class="flex items-center text-gray-600">
-                                <i class="fas fa-star text-yellow-500 mr-3"></i>
-                                Carnets profesionales PDF
-                            </div>
-                            <div class="flex items-center text-gray-600">
-                                <i class="fas fa-star text-yellow-500 mr-3"></i>
-                                Validación por geolocalización
-                            </div>
-                            <div class="flex items-center text-gray-600">
-                                <i class="fas fa-star text-yellow-500 mr-3"></i>
-                                Sistema ENTRY/EXIT automático
-                            </div>
-                            <div class="flex items-center text-gray-600">
-                                <i class="fas fa-star text-yellow-500 mr-3"></i>
-                                Fotos circulares Base64
-                            </div>
+                <div class="mb-4">
+                    <h4 class="text-gray-800 font-semibold mb-2 text-base">Características</h4>
+                    <div class="grid grid-cols-1 gap-2">
+                        <div class="flex items-center text-gray-600 text-sm">
+                            <i class="fas fa-star text-yellow-500 mr-2 text-xs"></i>
+                            Carnets profesionales PDF
+                        </div>
+                        <div class="flex items-center text-gray-600 text-sm">
+                            <i class="fas fa-star text-yellow-500 mr-2 text-xs"></i>
+                            Validación por geolocalización
+                        </div>
+                        <div class="flex items-center text-gray-600 text-sm">
+                            <i class="fas fa-star text-yellow-500 mr-2 text-xs"></i>
+                            Sistema ENTRY/EXIT automático
                         </div>
                     </div>
+                </div>
 
+                <div class="flex flex-col sm:flex-row gap-3 mt-4">
                     <a href="https://github.com/Oscardm22/AsistenciaQR.git" 
-                       class="inline-flex items-center bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-8 py-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
-                        <i class="fab fa-github mr-3 text-lg"></i>
-                        <span class="font-semibold">Ver Código en GitHub</span>
-                        <i class="fas fa-arrow-right ml-2"></i>
+                       class="flex-1 inline-flex items-center justify-center bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-4 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl text-sm">
+                        <i class="fab fa-github mr-2"></i>
+                        <span class="font-semibold">GitHub</span>
                     </a>
-                </div>
-                
-                <div class="lg:w-1/3">
-                    <div class="h-[460px] bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl shadow-inner border border-green-200 flex items-center justify-center p-6">
-                        <img src="images/app_asistencia.jpg" alt="Generación de Carnet Profesional - App de Asistencia QR" 
-                            class="h-full object-contain rounded-xl shadow-md">
-                    </div>
+                    <button class="flex-1 image-btn inline-flex items-center justify-center bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-4 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl text-sm" onclick="showProjectImages('asistencia')">
+                        <i class="fas fa-images mr-2"></i>
+                        <span class="font-semibold">Imágenes</span>
+                    </button>
                 </div>
             </div>
-        </div>
 
-        <!-- Proyecto 3: Estadísticas Fútbol -->
-        <div class="project-card rounded-2xl shadow-2xl p-8 mb-16 border-l-4 border-red-500 hover-lift">
-            <div class="flex flex-col lg:flex-row gap-8">
-                <div class="lg:w-2/3">
-                    <div class="flex items-center mb-6">
-                        <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center mr-4">
-                            <i class="fas fa-futbol text-white text-xl"></i>
-                        </div>
-                        <h3 class="text-3xl font-bold text-gray-800">
-                            Sistema Profesional de Estadísticas Deportivas
-                        </h3>
+            <!-- Proyecto 3: Estadísticas Fútbol -->
+            <div class="project-card rounded-2xl shadow-2xl p-6 border-l-4 border-red-500 hover-lift" style="--delay: 3">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center mr-3">
+                        <i class="fas fa-futbol text-white text-lg"></i>
                     </div>
-                    
-                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
-                        <strong class="text-gray-800">Plataforma completa de análisis deportivo</strong> con dashboard multi-pestañas, 
-                        gestión de equipos, jugadores y partidos en tiempo real con Firebase Firestore.
-                    </p>
-                    
-                    <div class="mb-6">
-                        <h4 class="text-gray-800 font-semibold mb-3 text-lg">Tecnologías Utilizadas</h4>
-                        <div class="flex flex-wrap gap-3">
-                            <span class="tech-badge bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-medium shadow-sm">
-                                <i class="fab fa-android mr-2"></i>Kotlin
-                            </span>
-                            <span class="tech-badge bg-red-100 text-red-800 px-4 py-2 rounded-full font-medium shadow-sm">
-                                <i class="fas fa-fire mr-2"></i>Firebase Firestore
-                            </span>
-                            <span class="tech-badge bg-indigo-100 text-indigo-800 px-4 py-2 rounded-full font-medium shadow-sm">
-                                <i class="fas fa-columns mr-2"></i>ViewPager2
-                            </span>
-                            <span class="tech-badge bg-pink-100 text-pink-800 px-4 py-2 rounded-full font-medium shadow-sm">
-                                <i class="fas fa-database mr-2"></i>Repository Pattern
-                            </span>
-                        </div>
+                    <h3 class="text-2xl font-bold text-gray-800">
+                        App de Estadísticas de Fútbol
+                    </h3>
+                </div>
+                
+                <p class="text-gray-600 mb-4 text-base leading-relaxed">
+                    <strong class="text-gray-800">Plataforma completa de análisis deportivo</strong> con dashboard multi-pestañas y gestión en tiempo real con Firebase.
+                </p>
+                
+                <div class="mb-4">
+                    <h4 class="text-gray-800 font-semibold mb-2 text-base">Tecnologías</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tech-badge bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                            <i class="fab fa-android mr-1"></i>Kotlin
+                        </span>
+                        <span class="tech-badge bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">
+                            <i class="fas fa-fire mr-1"></i>Firestore
+                        </span>
+                        <span class="tech-badge bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-medium">
+                            <i class="fas fa-columns mr-1"></i>ViewPager2
+                        </span>
                     </div>
+                </div>
 
-                    <div class="mb-8">
-                        <h4 class="text-gray-800 font-semibold mb-3 text-lg">Características Avanzadas</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div class="flex items-center text-gray-600">
-                                <i class="fas fa-chart-line text-blue-500 mr-3"></i>
-                                Dashboard multi-pestañas
-                            </div>
-                            <div class="flex items-center text-gray-600">
-                                <i class="fas fa-robot text-purple-500 mr-3"></i>
-                                FAB contextual inteligente
-                            </div>
-                            <div class="flex items-center text-gray-600">
-                                <i class="fas fa-filter text-green-500 mr-3"></i>
-                                Filtrado por competiciones
-                            </div>
-                            <div class="flex items-center text-gray-600">
-                                <i class="fas fa-calculator text-orange-500 mr-3"></i>
-                                Cálculo automático de stats
-                            </div>
+                <div class="mb-4">
+                    <h4 class="text-gray-800 font-semibold mb-2 text-base">Características</h4>
+                    <div class="grid grid-cols-1 gap-2">
+                        <div class="flex items-center text-gray-600 text-sm">
+                            <i class="fas fa-chart-line text-blue-500 mr-2 text-xs"></i>
+                            Dashboard multi-pestañas
+                        </div>
+                        <div class="flex items-center text-gray-600 text-sm">
+                            <i class="fas fa-robot text-purple-500 mr-2 text-xs"></i>
+                            FAB contextual inteligente
+                        </div>
+                        <div class="flex items-center text-gray-600 text-sm">
+                            <i class="fas fa-calculator text-orange-500 mr-2 text-xs"></i>
+                            Cálculo automático de stats
                         </div>
                     </div>
+                </div>
 
+                <div class="flex flex-col sm:flex-row gap-3 mt-4">
                     <a href="https://github.com/Oscardm22/futbol-data.git" 
-                       class="inline-flex items-center bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
-                        <i class="fab fa-github mr-3 text-lg"></i>
-                        <span class="font-semibold">Ver Código en GitHub</span>
-                        <i class="fas fa-arrow-right ml-2"></i>
+                       class="flex-1 inline-flex items-center justify-center bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-4 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl text-sm">
+                        <i class="fab fa-github mr-2"></i>
+                        <span class="font-semibold">GitHub</span>
                     </a>
-                </div>
-                
-                <div class="lg:w-1/3">
-                    <div class="h-[460px] bg-gradient-to-br from-red-50 to-pink-100 rounded-2xl shadow-inner border border-red-200 flex items-center justify-center p-6">
-                        <img src="images/fragment_estadisticas.jpg" alt="Dashboard de Estadísticas Deportivas - Vista multi-pestañas" 
-                            class="h-full object-contain rounded-xl shadow-md">
-                    </div>
+                    <button class="flex-1 image-btn inline-flex items-center justify-center bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white px-4 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl text-sm" onclick="showProjectImages('futbol')">
+                        <i class="fas fa-images mr-2"></i>
+                        <span class="font-semibold">Imágenes</span>
+                    </button>
                 </div>
             </div>
-        </div>
 
-        <!-- Proyecto 4: Gestión de Guardias -->
-        <div class="project-card rounded-2xl shadow-2xl p-8 mb-16 border-l-4 border-yellow-500 hover-lift">
-            <div class="flex flex-col lg:flex-row gap-8">
-                <div class="lg:w-2/3">
-                    <div class="flex items-center mb-6">
-                        <div class="w-12 h-12 bg-yellow-500 rounded-xl flex items-center justify-center mr-4">
-                            <i class="fas fa-calendar-alt text-white text-xl"></i>
-                        </div>
-                        <h3 class="text-3xl font-bold text-gray-800">
-                            Sistema Web de Gestión de Guardias Hospitalarias
-                        </h3>
+            <!-- Proyecto 4: Gestión de Guardias -->
+            <div class="project-card rounded-2xl shadow-2xl p-6 border-l-4 border-yellow-500 hover-lift" style="--delay: 4">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-yellow-500 rounded-xl flex items-center justify-center mr-3">
+                        <i class="fas fa-calendar-alt text-white text-lg"></i>
                     </div>
-                    
-                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
-                        <strong class="text-gray-800">Plataforma web completa</strong> para gestión automatizada de turnos de guardia hospitalaria 
-                        con dashboard administrativo, sistema de permisos y reportes en tiempo real.
-                    </p>
-                    
-                    <div class="mb-6">
-                        <h4 class="text-gray-800 font-semibold mb-3 text-lg">Tecnologías Utilizadas</h4>
-                        <div class="flex flex-wrap gap-3">
-                            <span class="tech-badge bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-medium shadow-sm">
-                                <i class="fab fa-php mr-2"></i>PHP
-                            </span>
-                            <span class="tech-badge bg-green-100 text-green-800 px-4 py-2 rounded-full font-medium shadow-sm">
-                                <i class="fas fa-database mr-2"></i>MySQL
-                            </span>
-                            <span class="tech-badge bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full font-medium shadow-sm">
-                                <i class="fab fa-bootstrap mr-2"></i>Bootstrap 5
-                            </span>
-                            <span class="tech-badge bg-purple-100 text-purple-800 px-4 py-2 rounded-full font-medium shadow-sm">
-                                <i class="fab fa-js-square mr-2"></i>jQuery & AJAX
-                            </span>
-                        </div>
+                    <h3 class="text-2xl font-bold text-gray-800">
+                        Sistema de Gestión de Guardias Hospitalarias
+                    </h3>
+                </div>
+                
+                <p class="text-gray-600 mb-4 text-base leading-relaxed">
+                    <strong class="text-gray-800">Plataforma web completa</strong> para gestión automatizada de turnos de guardia hospitalaria con dashboard administrativo.
+                </p>
+                
+                <div class="mb-4">
+                    <h4 class="text-gray-800 font-semibold mb-2 text-base">Tecnologías</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tech-badge bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                            <i class="fab fa-php mr-1"></i>PHP
+                        </span>
+                        <span class="tech-badge bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                            <i class="fas fa-database mr-1"></i>MySQL
+                        </span>
+                        <span class="tech-badge bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">
+                            <i class="fab fa-bootstrap mr-1"></i>Bootstrap
+                        </span>
                     </div>
+                </div>
 
-                    <div class="mb-8">
-                        <h4 class="text-gray-800 font-semibold mb-3 text-lg">Funcionalidades Clave</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div class="flex items-center text-gray-600">
-                                <i class="fas fa-tachometer-alt text-blue-500 mr-3"></i>
-                                Dashboard administrativo
-                            </div>
-                            <div class="flex items-center text-gray-600">
-                                <i class="fas fa-shield-alt text-green-500 mr-3"></i>
-                                Control de permisos granular
-                            </div>
-                            <div class="flex items-center text-gray-600">
-                                <i class="fas fa-users-cog text-purple-500 mr-3"></i>
-                                Gestión completa de personal
-                            </div>
-                            <div class="flex items-center text-gray-600">
-                                <i class="fas fa-bell text-yellow-500 mr-3"></i>
-                                Sistema de notificaciones
-                            </div>
+                <div class="mb-4">
+                    <h4 class="text-gray-800 font-semibold mb-2 text-base">Características</h4>
+                    <div class="grid grid-cols-1 gap-2">
+                        <div class="flex items-center text-gray-600 text-sm">
+                            <i class="fas fa-tachometer-alt text-blue-500 mr-2 text-xs"></i>
+                            Dashboard administrativo
+                        </div>
+                        <div class="flex items-center text-gray-600 text-sm">
+                            <i class="fas fa-shield-alt text-green-500 mr-2 text-xs"></i>
+                            Control de permisos granular
+                        </div>
+                        <div class="flex items-center text-gray-600 text-sm">
+                            <i class="fas fa-bell text-yellow-500 mr-2 text-xs"></i>
+                            Sistema de notificaciones
                         </div>
                     </div>
+                </div>
 
+                <div class="flex flex-col sm:flex-row gap-3 mt-4">
                     <a href="https://github.com/Oscardm22/sistema_guardias_hospital.git" 
-                       class="inline-flex items-center bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-700 hover:to-yellow-800 text-white px-8 py-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
-                        <i class="fab fa-github mr-3 text-lg"></i>
-                        <span class="font-semibold">Ver Código en GitHub</span>
-                        <i class="fas fa-arrow-right ml-2"></i>
+                       class="flex-1 inline-flex items-center justify-center bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-700 hover:to-yellow-800 text-white px-4 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl text-sm">
+                        <i class="fab fa-github mr-2"></i>
+                        <span class="font-semibold">GitHub</span>
                     </a>
-                </div>
-                
-                <div class="lg:w-1/3">
-                    <div class="h-[460px] bg-gradient-to-br from-yellow-50 to-orange-100 rounded-2xl shadow-inner border border-yellow-200 flex items-center justify-center p-6">
-                        <img src="images/home.jpg" alt="Dashboard de Gestión de Guardias Hospitalarias - Vista administrativa" 
-                            class="w-full h-full object-contain bg-white rounded-xl shadow-md">
-                    </div>
+                    <button class="flex-1 image-btn inline-flex items-center justify-center bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-4 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl text-sm" onclick="showProjectImages('guardias')">
+                        <i class="fas fa-images mr-2"></i>
+                        <span class="font-semibold">Imágenes</span>
+                    </button>
                 </div>
             </div>
+
         </div>
     </main>
 
     <!-- Footer -->
-    <footer id="contacto" class="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-16 mt-16">
+    <footer id="contacto" class="section-reveal bg-gradient-to-r from-gray-900 to-gray-800 text-white py-16 mt-16">
         <div class="container mx-auto px-6 text-center">
             <h2 class="text-3xl font-bold mb-8">¿Listo para trabajar juntos?</h2>
             <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
@@ -587,5 +818,192 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Scroll suave mejorado con offset para el header fijo
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const headerHeight = 80; // Altura aproximada del header
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Barra de progreso del scroll
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.querySelector('.scroll-progress').style.width = scrolled + '%';
+            
+            // Mostrar/ocultar botón volver arriba
+            const backToTop = document.getElementById('backToTop');
+            if (winScroll > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Botón volver arriba
+        document.getElementById('backToTop').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Animación de revelado para las secciones
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observar todas las secciones con clase section-reveal
+        document.querySelectorAll('.section-reveal').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Funcionalidad del modal de imágenes
+        const imageModal = document.getElementById('imageModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalImages = document.getElementById('modalImages');
+        const closeModal = document.getElementById('closeModal');
+
+        // Datos de imágenes para cada proyecto
+        const projectImages = {
+            inventario: {
+                title: 'App de Gestión de Inventario',
+                type: 'mobile', // Especificar que son imágenes de móvil
+                images: [
+                    'images/app_inventario.jpeg',
+                    'images/app_inventario_prodcto.jpg',
+                    'images/app_inventario_venta.jpg'
+                ]
+            },
+            asistencia: {
+                title: 'Sistema de Asistencia QR',
+                type: 'mobile',
+                images: [
+                    'images/app_asistencia.jpg',
+                    'images/app_asistencia_asistencias.jpg',
+                    'images/app_asistencia_escaner.jpg'
+                ]
+            },
+            futbol: {
+                title: 'Estadísticas Deportivas',
+                type: 'mobile',
+                images: [
+                    'images/fragment_estadisticas.jpg',
+                    'images/fragment_jugadores.jpg',
+                    'images/fragment_partidos.jpg'
+                ]
+            },
+            guardias: {
+                title: 'Gestión de Guardias Hospitalarias',
+                type: 'web', // Especificar que son imágenes de web
+                images: [
+                    'images/home.jpg',
+                    'images/detalle_guardia.jpg',
+                    'images/detalle_novedad.jpg'
+                ]
+            }
+        };
+
+        // Función para mostrar imágenes del proyecto
+        function showProjectImages(projectId) {
+            const project = projectImages[projectId];
+            if (!project) return;
+
+            // Actualizar título del modal
+            modalTitle.textContent = project.title;
+
+            // Limpiar imágenes anteriores
+            modalImages.innerHTML = '';
+
+            // Agregar nuevas imágenes
+            project.images.forEach((imageSrc, index) => {
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'relative flex justify-center';
+                
+                const img = document.createElement('img');
+                img.src = imageSrc;
+                img.alt = `${project.title} - Imagen ${index + 1}`;
+                
+                // Aplicar clase según el tipo de proyecto
+                if (project.type === 'mobile') {
+                    img.className = 'mobile-image';
+                } else {
+                    img.className = 'web-image';
+                }
+                
+                img.onerror = function() {
+                    // Si la imagen no existe, mostrar placeholder
+                    this.style.display = 'none';
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'image-placeholder';
+                    placeholder.innerHTML = `
+                        <i class="fas fa-image"></i>
+                        <div>Imagen ${index + 1} no disponible</div>
+                        <div class="text-xs mt-2">${project.title}</div>
+                    `;
+                    imgContainer.appendChild(placeholder);
+                };
+                
+                // Agregar indicador si hay más de 3 imágenes
+                if (project.images.length > 3 && index === 2) {
+                    const indicator = document.createElement('div');
+                    indicator.className = 'scroll-indicator';
+                    indicator.textContent = `+${project.images.length - 3} más`;
+                    imgContainer.appendChild(indicator);
+                }
+                
+                imgContainer.appendChild(img);
+                modalImages.appendChild(imgContainer);
+            });
+
+            // Mostrar modal
+            imageModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevenir scroll del body
+        }
+
+        // Cerrar modal
+        closeModal.addEventListener('click', closeImageModal);
+        imageModal.addEventListener('click', (e) => {
+            if (e.target === imageModal) {
+                closeImageModal();
+            }
+        });
+
+        // Cerrar con tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && imageModal.classList.contains('active')) {
+                closeImageModal();
+            }
+        });
+
+        function closeImageModal() {
+            imageModal.classList.remove('active');
+            document.body.style.overflow = ''; // Restaurar scroll del body
+        }
+    </script>
 </body>
 </html>
