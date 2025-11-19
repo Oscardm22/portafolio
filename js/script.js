@@ -109,6 +109,15 @@ const projectImages = {
             'images/detalle_guardia.jpg',
             'images/detalle_novedad.jpg'
         ]
+    },
+    estuguia: {
+        title: 'EstuGuía - Gestor de Horarios Académicos',
+        type: 'mobile',
+        images: [
+            'images/horario_inicio.jpg',
+            'images/horario_clases.jpg',
+            'images/horario_tareas.jpg',
+        ]
     }
 };
 
